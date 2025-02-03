@@ -122,8 +122,11 @@ cd ..
 #chmod +x playit
 
 # NOte this is directly downloaded from the playit repository, anything can happen.
-curl -SsL https://playit-cloud.github.io/ppa/key.gpg | sudo apt-key add -
-sudo curl -SsL -o /etc/apt/sources.list.d/playit-cloud.list https://playit-cloud.github.io/ppa/playit-cloud.list
+sudo mkdir -p /etc/apt/keyrings
+curl -SsL https://playit-cloud.github.io/ppa/key.gpg | sudo tee /etc/apt/keyrings/playit-cloud.gpg > /dev/null
+
+echo "deb [signed-by=/etc/apt/keyrings/playit-cloud.gpg] https://playit-cloud.github.io/ppa stable main" | sudo tee /etc/apt/sources.list.d/playit-cloud.list
+
 sudo apt update
 sudo apt install playit
 
